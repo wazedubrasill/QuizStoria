@@ -45,6 +45,7 @@ function resetQuizState() {
   updateTimerDisplay();
   document.getElementById("feedback").style.display = "none";
   document.getElementById("progress-fill").style.width = `0%`;
+  document.getElementById("next-question").disabled = true; // disabilita bottone inizialmente
 }
 
 function startQuiz(topic) {
@@ -104,6 +105,7 @@ function showQuestion() {
 
   answered = false;
   updateProgress();
+  document.getElementById("next-question").disabled = true; // disabilita bottone finché non rispondono
 }
 
 function handleAnswer(selectedOption, correctAnswer, tip) {
@@ -136,6 +138,7 @@ function handleAnswer(selectedOption, correctAnswer, tip) {
   displayScore();
   updateStreak();
   answered = true;
+  document.getElementById("next-question").disabled = false; // abilita bottone per andare avanti
 }
 
 function showTip(tip) {
