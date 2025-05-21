@@ -77,10 +77,37 @@ function getRandomTopic() {
 
 function showQuestion() {
   const topicQuestions = questionsData[currentTopic];
-  if (!topicQuestions || currentQuestionIndex >= topicQuestions.length) {
+
+  // Mostra massimo 20 domande
+  if (!topicQuestions || currentQuestionIndex >= 20 || currentQuestionIndex >= topicQuestions.length) {
     endQuiz();
     return;
-  } 
+  }
+
+  const questionData = topicQuestions[currentQuestionIndex];
+  const questionContainer = document.getElementById("question");
+  const optionsContainer = document.getElementById("options");
+  const feedback = document.getElementById("feedback");
+
+  questionContainer.textContent = questionData.question;
+  optionsContainer.innerHTML = "";
+  feedback.style.display = "none";
+  feedback.textContent = "";
+
+  const shuffledOptions = shuffleArray([...questionData.options]);
+
+  shuffledOptions.forEach(option => {
+    const li = document.createElement("li");
+    li.textContent = option;
+    li.onclick = () => handleAnswer(li, questionData.answer, questionData.tip);
+    li.title = questionData.tip || "";
+    optionsContainer.appendChild(li);
+  });
+
+  answered = false;
+  updateProgress();
+}
+
 
   const questionData = topicQuestions[currentQuestionIndex];
   const questionContainer = document.getElementById("question");
