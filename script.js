@@ -7,7 +7,6 @@ let questionsData = {};
 let quizTimer;
 let remainingTime = 300; // 5 minuti
 
-// Carica domande da file JSON esterno (questions.json)
 async function loadQuestions() {
   try {
     const response = await fetch('questions.json');
@@ -19,7 +18,6 @@ async function loadQuestions() {
   }
 }
 
-// Carico domande subito all’avvio
 loadQuestions();
 
 function showRules() {
@@ -45,7 +43,7 @@ function resetQuizState() {
   updateTimerDisplay();
   document.getElementById("feedback").style.display = "none";
   document.getElementById("progress-fill").style.width = `0%`;
-  document.getElementById("next-question").disabled = true; // disabilita bottone inizialmente
+  document.getElementById("next-question").disabled = true;
 }
 
 function startQuiz(topic) {
@@ -78,7 +76,6 @@ function getRandomTopic() {
 function showQuestion() {
   const topicQuestions = questionsData[currentTopic];
 
-  // Mostra massimo 20 domande
   if (!topicQuestions || currentQuestionIndex >= 20 || currentQuestionIndex >= topicQuestions.length) {
     endQuiz();
     return;
@@ -106,43 +103,17 @@ function showQuestion() {
 
   answered = false;
   updateProgress();
-}
-
-
-  const questionData = topicQuestions[currentQuestionIndex];
-  const questionContainer = document.getElementById("question");
-  const optionsContainer = document.getElementById("options");
-  const feedback = document.getElementById("feedback");
-
-  questionContainer.textContent = questionData.question;
-  optionsContainer.innerHTML = "";
-  feedback.style.display = "none";
-  feedback.textContent = "";
-
-  // Mescola le opzioni
-  const shuffledOptions = shuffleArray([...questionData.options]);
-
-  shuffledOptions.forEach(option => {
-    const li = document.createElement("li");
-    li.textContent = option;
-    li.onclick = () => handleAnswer(li, questionData.answer, questionData.tip);
-    li.title = questionData.tip || "";
-    optionsContainer.appendChild(li);
-  });
-
-  answered = false;
-  updateProgress();
-  document.getElementById("next-question").disabled = true; // disabilita bottone finché non rispondono
+  document.getElementById("next-question").disabled = true;
 }
 
 function handleAnswer(selectedOption, correctAnswer, tip) {
-  if (answered) return; // previeni doppio click
+  if (answered) return;
 
   const options = document.querySelectorAll("#options li");
   const isCorrect = selectedOption.textContent === correctAnswer;
 
   options.forEach(option => {
-    option.style.pointerEvents = "none"; // disabilita tutte le opzioni
+    option.style.pointerEvents = "none";
     if (option.textContent === correctAnswer) {
       option.style.backgroundColor = "lightgreen";
     } else if (option === selectedOption && !isCorrect) {
@@ -165,7 +136,7 @@ function handleAnswer(selectedOption, correctAnswer, tip) {
   displayScore();
   updateStreak();
   answered = true;
-  document.getElementById("next-question").disabled = false; // abilita bottone per andare avanti
+  document.getElementById("next-question").disabled = false;
 }
 
 function showTip(tip) {
@@ -192,7 +163,7 @@ function updateStreak() {
 }
 
 function updateProgress() {
-  const total = questionsData[currentTopic]?.length || 1;
+  const total = Math.min(20, questionsData[currentTopic]?.length || 1);
   const progressPercent = ((currentQuestionIndex) / total) * 100;
   document.getElementById("progress-fill").style.width = `${progressPercent}%`;
 }
@@ -240,9 +211,9 @@ function endQuiz() {
   document.getElementById("summary-page").style.display = "block";
 
   const summary = document.getElementById("summary-container");
-  const totalQuestions = questionsData[currentTopic]?.length || 0;
+  const total = Math.min(20, questionsData[currentTopic]?.length || 0);
   const points = score * 0.5;
-  const vote = Math.min(10, Math.max(1, Math.round((points / totalQuestions) * 10)));
+  const vote = Math.min(10, Math.max(1, Math.round((points / total) * 10)));
 
   summary.innerHTML = `
     <p>Hai risposto a ${currentQuestionIndex} domande.</p>
