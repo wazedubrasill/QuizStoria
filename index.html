@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Quiz di Storia Romana</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css" />
     <script defer src="script.js"></script>
 </head>
 <body>
@@ -21,8 +21,6 @@
             <button class="select-button" onclick="tryStartQuiz('Flavia')">Dinastia Flavia</button>
             <button class="select-button" onclick="tryStartQuiz('Antonini')">Gli Antonini</button>
             <button class="select-button" onclick="tryStartQuiz('random')">Random</button>
-            <button id="next-question" onclick="nextQuestion()">Prossima domanda</button>
-
         </div>
     </div>
 
@@ -32,11 +30,11 @@
         <p id="question">Caricamento domanda...</p>
         <ul id="options"></ul>
         <div id="feedback" style="display:none;"></div>
-        <button id="next-question" onclick="idk()">Prossima domanda</button>
+        <button id="next-question" onclick="nextQuestion()">Prossima domanda</button>
         <div class="score" id="score">Punteggio: 0</div>
         <div id="streak">🔥 Streak: 0</div>
         <div id="timer"></div>
-        <button id="return-home" onclick="location.reload()">Torna agli Argomenti</button>
+        <button id="return-home" onclick="goHome()">Torna agli Argomenti</button>
     </div>
 
     <div class="quiz-container" id="rules-page" style="display: none;">
@@ -73,7 +71,7 @@
     <div class="quiz-container" id="summary-page" style="display:none;">
         <h1>Riepilogo Quiz</h1>
         <div id="summary-container"></div>
-        <button id="return-home" onclick="location.reload()">Torna agli argomenti</button>
+        <button id="return-home" onclick="goHome()">Torna agli argomenti</button>
     </div>
 
     <audio id="correct-sound" src="sounds/correct-6033.mp3" preload="auto"></audio>
