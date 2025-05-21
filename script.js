@@ -1,33 +1,26 @@
 let score = 0;
 let streak = 0;
-let attemptedQuestions = [];
+let currentQuestionIndex = 0;
 let currentTopic = "";
 let answered = false;
 let questionsData = {};
 let quizTimer;
 let remainingTime = 300; // 5 minuti
-let allQuestionsAnswered = false;
-
-let questionsLoaded = false; // flag per domande caricate
-let questionsLoadPromise = null;
 
 // Carica domande da file JSON esterno (questions.json)
-function loadQuestions() {
-  return fetch('questions.json')
-    .then(response => response.json())
-    .then(data => {
-      questionsData = data;
-      questionsLoaded = true;
-      console.log("Domande caricate:", questionsData);
-    })
-    .catch(error => {
-      alert("Errore nel caricamento delle domande.");
-      console.error(error);
-    });
+async function loadQuestions() {
+  try {
+    const response = await fetch('questions.json');
+    const data = await response.json();
+    questionsData = data;
+  } catch (error) {
+    alert("Errore nel caricamento delle domande.");
+    console.error(error);
+  }
 }
 
-// Carichiamo le domande all'avvio e salviamo la Promise
-questionsLoadPromise = loadQuestions();
+// Carico domande subito all’avvio
+loadQuestions();
 
 function showRules() {
   document.getElementById("home-page").style.display = "none";
@@ -46,23 +39,12 @@ function goHome() {
 function resetQuizState() {
   score = 0;
   streak = 0;
-  attemptedQuestions = [];
+  currentQuestionIndex = 0;
   answered = false;
-  allQuestionsAnswered = false;
   remainingTime = 300;
   updateTimerDisplay();
   document.getElementById("feedback").style.display = "none";
   document.getElementById("progress-fill").style.width = `0%`;
-}
-
-function tryStartQuiz(topic) {
-  if (!questionsLoaded) {
-    questionsLoadPromise.then(() => {
-      startQuiz(topic);
-    });
-  } else {
-    startQuiz(topic);
-  }
 }
 
 function startQuiz(topic) {
@@ -83,7 +65,7 @@ function startQuiz(topic) {
   displayScore();
   updateStreak();
   updateProgress();
-  fetchQuestion();
+  showQuestion();
   startTimer();
 }
 
@@ -92,30 +74,14 @@ function getRandomTopic() {
   return keys[Math.floor(Math.random() * keys.length)];
 }
 
-function fetchQuestion() {
+function showQuestion() {
   const topicQuestions = questionsData[currentTopic];
-  if (!topicQuestions) {
-    alert("Nessuna domanda disponibile per questo argomento.");
-    return;
-  }
-
-  const unansweredQuestions = topicQuestions.filter((_, i) => !attemptedQuestions.includes(i));
-
-  if (unansweredQuestions.length === 0) {
-    allQuestionsAnswered = true;
+  if (!topicQuestions || currentQuestionIndex >= topicQuestions.length) {
     endQuiz();
     return;
   }
 
-  const randomIndex = Math.floor(Math.random() * unansweredQuestions.length);
-  const questionIndex = topicQuestions.indexOf(unansweredQuestions[randomIndex]);
-
-  displayQuestion(topicQuestions[questionIndex], questionIndex);
-  updateProgress();
-  answered = false;
-}
-
-function displayQuestion(questionData, index) {
+  const questionData = topicQuestions[currentQuestionIndex];
   const questionContainer = document.getElementById("question");
   const optionsContainer = document.getElementById("options");
   const feedback = document.getElementById("feedback");
@@ -125,25 +91,29 @@ function displayQuestion(questionData, index) {
   feedback.style.display = "none";
   feedback.textContent = "";
 
+  // Mescola le opzioni
   const shuffledOptions = shuffleArray([...questionData.options]);
 
   shuffledOptions.forEach(option => {
     const li = document.createElement("li");
     li.textContent = option;
-    li.onclick = () => handleAnswer(li, questionData.answer, questionData.tip, index);
+    li.onclick = () => handleAnswer(li, questionData.answer, questionData.tip);
     li.title = questionData.tip || "";
     optionsContainer.appendChild(li);
   });
+
+  answered = false;
+  updateProgress();
 }
 
-function handleAnswer(selectedOption, correctAnswer, tip, questionIndex) {
-  if (answered) return;
+function handleAnswer(selectedOption, correctAnswer, tip) {
+  if (answered) return; // previeni doppio click
 
   const options = document.querySelectorAll("#options li");
   const isCorrect = selectedOption.textContent === correctAnswer;
 
   options.forEach(option => {
-    option.style.pointerEvents = "none";
+    option.style.pointerEvents = "none"; // disabilita tutte le opzioni
     if (option.textContent === correctAnswer) {
       option.style.backgroundColor = "lightgreen";
     } else if (option === selectedOption && !isCorrect) {
@@ -163,7 +133,6 @@ function handleAnswer(selectedOption, correctAnswer, tip, questionIndex) {
     showTip(tip);
   }
 
-  attemptedQuestions.push(questionIndex);
   displayScore();
   updateStreak();
   answered = true;
@@ -194,7 +163,7 @@ function updateStreak() {
 
 function updateProgress() {
   const total = questionsData[currentTopic]?.length || 1;
-  const progressPercent = (attemptedQuestions.length / total) * 100;
+  const progressPercent = ((currentQuestionIndex) / total) * 100;
   document.getElementById("progress-fill").style.width = `${progressPercent}%`;
 }
 
@@ -203,7 +172,9 @@ function nextQuestion() {
     alert("Seleziona una risposta prima di andare alla prossima domanda.");
     return;
   }
-  fetchQuestion();
+
+  currentQuestionIndex++;
+  showQuestion();
 }
 
 function shuffleArray(array) {
@@ -244,7 +215,7 @@ function endQuiz() {
   const vote = Math.min(10, Math.max(1, Math.round((points / totalQuestions) * 10)));
 
   summary.innerHTML = `
-    <p>Hai risposto a ${attemptedQuestions.length} domande.</p>
+    <p>Hai risposto a ${currentQuestionIndex} domande.</p>
     <p>Punteggio totale: ${points.toFixed(1)} punti.</p>
     <p>Voto finale: ${vote} / 10</p>
   `;
