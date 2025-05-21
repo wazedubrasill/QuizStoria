@@ -77,7 +77,7 @@ function getRandomTopic() {
 
 function showQuestion() {
   const topicQuestions = questionsData[currentTopic];
-  if (!topicQuestions || currentQuestionIndex >= topicQuestions.length) {
+  if (!topicQuestions || currentQuestionIndex >= Math.min(20, topicQuestions.length)) {
     endQuiz();
     return;
   }
