@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Quiz di Storia Romana</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="script.js"></script>
+    <style>
+        /* Solo per test rapido */
+        .select-button {
+            margin: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        #options li {
+            list-style: none;
+            margin: 5px 0;
+            padding: 8px;
+            border: 1px solid #333;
+            cursor: pointer;
+            user-select: none;
+        }
+        #options li:hover {
+            background-color: #eee;
+        }
+        .shake {
+            animation: shake 0.5s;
+        }
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container" id="home-page">
+        <h1>Benvenuto al Quiz di Storia Romana</h1>
+        <div class="page-select">
+            <p>Seleziona un argomento:</p>
+            <button class="select-button" onclick="showRules()">Appunti</button>
+            <button class="select-button" onclick="startQuiz('Giulio-Cesare')">Giulio Cesare</button>
+            <button class="select-button" onclick="startQuiz('Flavia')">Dinastia Flavia</button>
+            <button class="select-button" onclick="startQuiz('Giulio-Claudia')">Dinastia Giulio-Claudia</button>
+            <button class="select-button" onclick="startQuiz('Ottaviano')">Ottaviano</button>
+            <button class="select-button" onclick="startQuiz('Antonini')">Gli Antonini</button>
+            <button class="select-button" onclick="startQuiz('random')">Random</button>
+        </div>
+    </div>
+
+    <div class="quiz-container" id="quiz-page" style="display:none;">
+        <h1 id="quiz-title">Quiz di Storia!</h1>
+        <div class="progress-bar"><div class="progress-bar-fill" id="progress-fill" style="width: 0%; height: 10px; background: green;"></div></div>
+        <p id="question">Caricamento domanda...</p>
+        <ul id="options"></ul>
+        <div id="feedback" style="display:none; margin-top:10px; font-style: italic; color: darkred;"></div>
+        <button id="next-question" onclick="idk()">Prossima domanda</button>
+        <div class="score" id="score">Punteggio: 0</div>
+        <div id="streak">🔥 Streak: 0</div>
+        <div id="timer" style="margin-top: 10px; font-weight: bold;"></div>
+        <button id="return-home" onclick="location.reload()">Torna agli Argomenti</button>
+    </div>
+
+    <div class="quiz-container" id="rules-page" style="display:none;">
+        <h2>Regole del Quiz</h2>
+        <p>Qui puoi inserire le regole del quiz...</p>
+        <button onclick="goHome()">Torna agli Argomenti</button>
+    </div>
+
+    <div class="quiz-container" id="summary-page" style="display:none;">
+        <h2>Riassunto Quiz</h2>
+        <div id="summary-container"></div>
+        <button onclick="location.reload()">Ricomincia</button>
+    </div>
+
+    <!-- Audio per suoni -->
+    <audio id="correct-sound" src="correct.mp3" preload="auto"></audio>
+    <audio id="wrong-sound" src="wrong.mp3" preload="auto"></audio>
+</body>
+</html>
