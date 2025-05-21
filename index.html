@@ -1,80 +1,85 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Quiz di Storia Romana</title>
-    <link rel="stylesheet" href="styles.css" />
-    <script defer src="script.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quiz di Storia Romana</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="script.js"></script>
 </head>
 <body>
-    <button id="dark-mode-toggle" onclick="toggleDarkMode()">🌙</button>
+  <button id="dark-mode-toggle" onclick="toggleDarkMode()" aria-label="Attiva/disattiva modalità scura">🌙</button>
 
-    <div class="quiz-container" id="home-page">
-        <h1>Benvenuto al Quiz di Storia Romana</h1>
-        <div class="page-select">
-            <p>Seleziona un argomento:</p>
-            <button class="select-button" onclick="showRules()">Appunti</button>
-            <button class="select-button" onclick="startQuiz('Giulio-Cesare')">Giulio Cesare</button>
-            <button class="select-button" onclick="startQuiz('Ottaviano')">Ottaviano</button>
-            <button class="select-button" onclick="startQuiz('Giulio-Claudia')">Dinastia Giulio-Claudia</button>
-            <button class="select-button" onclick="startQuiz('Flavia')">Dinastia Flavia</button>
-            <button class="select-button" onclick="startQuiz('Antonini')">Gli Antonini</button>
-            <button class="select-button" onclick="startQuiz('random')">Random</button>
-        </div>
+  <!-- Pagina Home -->
+  <div class="quiz-container" id="home-page">
+    <h1>Benvenuto al Quiz di Storia Romana</h1>
+    <div class="page-select">
+      <p>Seleziona un argomento:</p>
+      <button class="select-button" onclick="showRules()">Appunti</button>
+      <button class="select-button" onclick="startQuiz('Giulio-Cesare')">Giulio Cesare</button>
+      <button class="select-button" onclick="startQuiz('Ottaviano')">Ottaviano</button>
+      <button class="select-button" onclick="startQuiz('Giulio-Claudia')">Dinastia Giulio-Claudia</button>
+      <button class="select-button" onclick="startQuiz('Flavia')">Dinastia Flavia</button>
+      <button class="select-button" onclick="startQuiz('Antonini')">Gli Antonini</button>
+      <button class="select-button" onclick="startQuiz('random')">Random</button>
     </div>
+  </div>
 
-    <div class="quiz-container" id="quiz-page" style="display:none;">
-        <h1 id="quiz-title">Quiz di Storia!</h1>
-        <div class="progress-bar"><div class="progress-bar-fill" id="progress-fill"></div></div>
-        <p id="question">Caricamento domanda...</p>
-        <ul id="options"></ul>
-        <div id="feedback" style="display:none;"></div>
-        <button id="next-question" onclick="nextQuestion()">Prossima domanda</button>
-        <div class="score" id="score">Punteggio: 0</div>
-        <div id="streak">🔥 Streak: 0</div>
-        <div id="timer"></div>
-        <button id="return-home" onclick="goHome()">Torna agli Argomenti</button>
+  <!-- Pagina Quiz -->
+  <div class="quiz-container" id="quiz-page" style="display: none;">
+    <h1 id="quiz-title">Quiz di Storia!</h1>
+    <div class="progress-bar"><div class="progress-bar-fill" id="progress-fill"></div></div>
+    <p id="question">Caricamento domanda...</p>
+    <ul id="options"></ul>
+    <div id="feedback" style="display: none;"></div>
+    <button id="next-question" onclick="nextQuestion()">Prossima domanda</button>
+    <div class="score" id="score">Punteggio: 0</div>
+    <div id="streak">🔥 Streak: 0</div>
+    <div id="timer">Tempo rimasto: 5:00</div>
+    <button id="return-home" onclick="goHome()">Torna agli Argomenti</button>
+  </div>
+
+  <!-- Pagina Appunti -->
+  <div class="quiz-container" id="rules-page" style="display: none;">
+    <h1>Appunti di Storia</h1>
+    <div id="rules-content">
+      <button class="select-button" onclick="toggleRuleSection('Giulio-Cesare')">Giulio Cesare</button>
+      <div class="rule-section" id="rule-Giulio-Cesare">
+        <p><strong>Giulio Cesare:</strong> Generale e dittatore romano. Espanse il dominio romano in Gallia, attraversò il Rubicone nel 49 a.C., provocando una guerra civile. Fu assassinato nel 44 a.C. dai senatori guidati da Bruto e Cassio.</p>
+      </div>
+
+      <button class="select-button" onclick="toggleRuleSection('Ottaviano')">Ottaviano</button>
+      <div class="rule-section" id="rule-Ottaviano">
+        <p><strong>Ottaviano/Augusto:</strong> Primo imperatore romano. Consolidò il potere dopo la morte di Cesare, sconfisse Antonio e Cleopatra, e diede inizio al Principato nel 27 a.C. Regnò fino al 14 d.C.</p>
+      </div>
+
+      <button class="select-button" onclick="toggleRuleSection('Giulio-Claudia')">Dinastia Giulio-Claudia</button>
+      <div class="rule-section" id="rule-Giulio-Claudia">
+        <p><strong>Dinastia Giulio-Claudia:</strong> Comprende i primi cinque imperatori: Augusto, Tiberio, Caligola, Claudio e Nerone. Dinastia caratterizzata da intrighi, abusi di potere e declino della repubblica.</p>
+      </div>
+
+      <button class="select-button" onclick="toggleRuleSection('Flavia')">Dinastia Flavia</button>
+      <div class="rule-section" id="rule-Flavia">
+        <p><strong>Dinastia Flavia:</strong> Comprende Vespasiano, Tito e Domiziano. Restaurarono la stabilità dopo la guerra civile del 69 d.C., costruirono il Colosseo e repressero la rivolta ebraica.</p>
+      </div>
+
+      <button class="select-button" onclick="toggleRuleSection('Antonini')">Gli Antonini</button>
+      <div class="rule-section" id="rule-Antonini">
+        <p><strong>Gli Antonini:</strong> Periodo di massimo splendore dell'Impero. Imperatori come Traiano, Adriano, Antonino Pio e Marco Aurelio portarono stabilità, riforme e difesa dei confini.</p>
+      </div>
     </div>
+    <button id="return-home" onclick="goHome()">Torna agli Argomenti</button>
+  </div>
 
-    <div class="quiz-container" id="rules-page" style="display: none;">
-        <h1>Appunti di Storia</h1>
-        <div id="rules-content">
-            <button class="select-button" onclick="toggleRuleSection('Giulio Cesare')">Giulio Cesare</button>
-            <div class="rule-section" id="rule-Giulio Cesare">
-                <p><strong>Giulio Cesare:</strong> Generale e dittatore romano. Espanse il dominio romano in Gallia, attraversò il Rubicone nel 49 a.C., provocando una guerra civile. Fu assassinato nel 44 a.C. dai senatori guidati da Bruto e Cassio.</p>
-            </div>
+  <!-- Pagina Riepilogo -->
+  <div class="quiz-container" id="summary-page" style="display: none;">
+    <h1>Riepilogo Quiz</h1>
+    <div id="summary-container"></div>
+    <button id="return-home" onclick="goHome()">Torna agli Argomenti</button>
+  </div>
 
-            <button class="select-button" onclick="toggleRuleSection('Ottaviano')">Ottaviano</button>
-            <div class="rule-section" id="rule-Ottaviano">
-                <p><strong>Ottaviano/Augusto:</strong> Primo imperatore romano. Consolidò il potere dopo la morte di Cesare, sconfisse Antonio e Cleopatra, e diede inizio al Principato nel 27 a.C. Regnò fino al 14 d.C.</p>
-            </div>
-
-            <button class="select-button" onclick="toggleRuleSection('Giulio-Claudia')">Dinastia Giulio-Claudia</button>
-            <div class="rule-section" id="rule-Giulio-Claudia">
-                <p><strong>Dinastia Giulio-Claudia:</strong> Comprende i primi cinque imperatori: Augusto, Tiberio, Caligola, Claudio e Nerone. Dinastia caratterizzata da intrighi, abusi di potere, e declino della repubblica.</p>
-            </div>
-
-            <button class="select-button" onclick="toggleRuleSection('Flavia')">Dinastia Flavia</button>
-            <div class="rule-section" id="rule-Flavia">
-                <p><strong>Dinastia Flavia:</strong> Comprende Vespasiano, Tito e Domiziano. Restaurarono stabilità dopo la guerra civile del 69 d.C. Costruzione del Colosseo e repressione della rivolta ebraica.</p>
-            </div>
-
-            <button class="select-button" onclick="toggleRuleSection('Antonini')">Gli Antonini</button>
-            <div class="rule-section" id="rule-Antonini">
-                <p><strong>Gli Antonini:</strong> Periodo di massimo splendore dell'Impero. Imperatori come Traiano, Adriano, Antonino Pio e Marco Aurelio portarono stabilità, riforme e difesa dei confini.</p>
-            </div>
-        </div>
-        <button id="return-home" onclick="goHome()">Torna agli Argomenti</button>
-    </div>
-
-    <div class="quiz-container" id="summary-page" style="display:none;">
-        <h1>Riepilogo Quiz</h1>
-        <div id="summary-container"></div>
-        <button id="return-home" onclick="goHome()">Torna agli argomenti</button>
-    </div>
-
-    <audio id="correct-sound" src="sounds/correct-6033.mp3" preload="auto"></audio>
-    <audio id="wrong-sound" src="sounds/wrong-47985.mp3" preload="auto"></audio>
+  <!-- Suoni -->
+  <audio id="correct-sound" src="sounds/correct-6033.mp3" preload="auto"></audio>
+  <audio id="wrong-sound" src="sounds/wrong-47985.mp3" preload="auto"></audio>
 </body>
 </html>
