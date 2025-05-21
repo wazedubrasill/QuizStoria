@@ -19,8 +19,6 @@ async function loadQuestions() {
     console.error(error);
   }
 }
-
-
 loadQuestions();
 
 function showRules() {
