@@ -1,81 +1,80 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&display=swap');
-
+/* FONT ANTICO & MODERNO */
 body {
-  font-family: 'Cinzel', serif;
-  background-color: #f2e9dc;
-  background-image: url('https://www.transparenttextures.com/patterns/old-wall.png');
+  font-family: 'Georgia', serif;
+  background-color: #f4f1e6;
   margin: 0;
   padding: 0;
+  color: #3b2e1a;
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  color: #3b2f2f;
+  background-image: url('https://www.transparenttextures.com/patterns/papyrus.png');
+  background-attachment: fixed;
+  background-size: cover;
 }
 
+/* CONTENITORE QUIZ */
 .quiz-container {
-  background-color: #f9f2e4;
-  border: 5px double #8b5a2b;
-  border-radius: 18px;
-  box-shadow: 0 0 10px rgba(50, 40, 30, 0.3);
+  background: rgba(255, 248, 230, 0.95);
+  border: 3px solid #a97c50;
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(169, 124, 80, 0.6);
   padding: 40px;
-  width: 90%;
-  max-width: 700px;
+  width: 95%;
+  max-width: 750px;
   font-size: 18px;
-  transition: transform 0.3s ease;
 }
 
-.quiz-container:hover {
-  transform: scale(1.01);
-}
-
+/* TITOLO */
 h1 {
-  color: #5e3d2c;
   text-align: center;
-  font-size: 32px;
+  font-size: 36px;
   font-weight: bold;
-  border-bottom: 2px solid #8b5a2b;
-  padding-bottom: 12px;
+  color: #59391c;
+  text-shadow: 1px 1px 2px #c2a47c;
+  letter-spacing: 1px;
   margin-bottom: 30px;
-  text-transform: uppercase;
 }
 
+/* GRIGLIA DEI BOTTONI SELEZIONE */
 .page-select {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  justify-content: center;
+  margin-top: 30px;
 }
 
+/* BOTTONI STILE TAVOLETTA ANTICA */
 .select-button {
   padding: 14px;
-  border: 2px solid #8b5a2b;
-  background-color: #e9dbc7;
-  color: #3b2f2f;
+  background-color: #e6d4b6;
+  border: 2px solid #a97c50;
   border-radius: 10px;
-  font-size: 18px;
-  cursor: pointer;
+  font-size: 17px;
   font-weight: bold;
-  text-transform: uppercase;
+  color: #3b2e1a;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(85, 62, 35, 0.3);
   transition: all 0.3s ease;
-  box-shadow: 2px 2px 0px #bfa77a;
 }
 
 .select-button:hover {
-  background-color: #d8c4a0;
+  background-color: #d2b48c;
+  box-shadow: 0 0 12px #a97c50;
   transform: translateY(-2px);
-  box-shadow: 4px 4px 0px #a58e6f;
 }
 
+/* DOMANDA */
 #question {
-  font-size: 20px;
+  font-size: 22px;
+  font-weight: bold;
   margin-bottom: 20px;
-  line-height: 1.6;
   font-style: italic;
-  border-left: 4px solid #8b5a2b;
-  padding-left: 10px;
 }
 
+/* OPZIONI */
 #options {
   list-style-type: none;
   padding: 0;
@@ -83,61 +82,65 @@ h1 {
 
 #options li {
   padding: 12px;
-  margin-bottom: 10px;
-  background-color: #eee2cf;
-  border: 1px solid #a58e6f;
+  margin-bottom: 12px;
+  background-color: #f8efe0;
+  border: 1px solid #b9976b;
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.2s, transform 0.2s;
+  transition: background-color 0.3s, box-shadow 0.3s;
 }
 
 #options li:hover {
-  background-color: #dfcdb2;
-  transform: translateX(4px);
+  background-color: #edd4b1;
+  box-shadow: 0 0 10px rgba(169, 124, 80, 0.5);
 }
 
+/* PULSANTI PROSSIMA E HOME */
 #next-question,
 #return-home {
-  padding: 10px 20px;
-  background-color: #bfa77a;
-  color: #3b2f2f;
-  border: 2px solid #8b5a2b;
+  padding: 12px 24px;
+  background-color: #a97c50;
+  color: #fff7e0;
+  border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 17px;
-  margin-top: 20px;
-  transition: background-color 0.3s, transform 0.2s;
+  font-size: 18px;
   font-weight: bold;
+  margin: 20px 10px 0;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 #next-question:hover,
 #return-home:hover {
-  background-color: #a58e6f;
+  background-color: #8b643b;
   transform: scale(1.05);
 }
 
+/* FEEDBACK */
+#feedback {
+  margin: 15px 0;
+  padding: 12px;
+  background-color: #fcf1dd;
+  border-left: 4px solid #b9976b;
+  font-weight: bold;
+  color: #3b2e1a;
+  border-radius: 6px;
+}
+
+/* SCORE & STREAK */
 .score {
   margin-top: 20px;
-  font-weight: bold;
-  font-size: 20px;
   text-align: center;
-  color: #5e3d2c;
-}
-
-#feedback {
-  padding: 12px;
-  margin: 15px 0;
-  border-radius: 8px;
+  font-size: 20px;
   font-weight: bold;
-  border: 1px dashed #8b5a2b;
-  background-color: #f0e4d2;
-  color: #5e3d2c;
+  color: #7e5d3b;
 }
 
+/* BARRA DI PROGRESSO */
 .progress-bar {
-  height: 14px;
-  background-color: #e0cfa7;
-  border: 1px solid #8b5a2b;
+  height: 16px;
+  background-color: #f2e6d0;
+  border: 1px solid #a97c50;
   border-radius: 10px;
   overflow: hidden;
   margin: 20px 0;
@@ -146,23 +149,37 @@ h1 {
 #progress-fill {
   height: 100%;
   width: 0%;
-  background-color: #8b5a2b;
-  transition: width 0.3s ease;
+  background-color: #c79f72;
+  transition: width 0.4s ease;
 }
 
+/* TIMER ANTICO + MODERNO */
 #timer {
   font-size: 20px;
   font-weight: bold;
   text-align: center;
-  color: #3b2f2f;
-  background-color: #f4e8cf;
+  background-color: #fff6e5;
+  color: #5d422a;
   padding: 10px 20px;
-  border: 2px solid #8b5a2b;
-  border-radius: 8px;
+  border: 2px solid #c7a271;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(169, 124, 80, 0.5);
   position: fixed;
   top: 20px;
   left: 20px;
   z-index: 10;
-  font-family: 'Cinzel', serif;
-  box-shadow: 2px 2px 8px rgba(50, 40, 30, 0.3);
+  font-family: 'Georgia', serif;
+}
+
+/* ANIMAZIONE ERRORE */
+.shake {
+  animation: shake 0.3s;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0px); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0px); }
 }
