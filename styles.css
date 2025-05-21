@@ -1,0 +1,152 @@
+body {
+    font-family: 'Segoe UI', 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #ffffff;
+    background-attachment: fixed;
+}
+
+.quiz-container {
+    background-color: rgba(15, 15, 30, 0.9);
+    border: 2px solid #00ffe1;
+    border-radius: 18px;
+    box-shadow: 0 0 25px rgba(0, 255, 225, 0.3);
+    padding: 40px;
+    width: 90%;
+    max-width: 700px;
+    font-size: 18px;
+    backdrop-filter: blur(10px);
+}
+
+h1 {
+    color: #00fff7;
+    text-align: center;
+    font-size: 34px;
+    font-weight: bold;
+    text-shadow: 0 0 5px #00ffee;
+}
+
+.page-select {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.select-button {
+    padding: 12px;
+    border: 2px solid #00ffe1;
+    background-color: transparent;
+    color: #ffffff;
+    border-radius: 12px;
+    font-size: 18px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.select-button:hover {
+    background-color: #00ffe1;
+    color: #000;
+    box-shadow: 0 0 12px #00ffe1;
+}
+
+#question {
+    font-size: 20px;
+    margin-bottom: 20px;
+    line-height: 1.6;
+    font-style: italic;
+}
+
+#options {
+    list-style-type: none;
+    padding: 0;
+}
+
+#options li {
+    padding: 12px;
+    margin-bottom: 10px;
+    background-color: #182848;
+    border: 1px solid #00ffe1;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s, box-shadow 0.3s;
+}
+
+#options li:hover {
+    background-color: #0f3057;
+    box-shadow: 0 0 8px #00ffe1;
+}
+
+#next-question, #return-home {
+    padding: 10px 20px;
+    background-color: #00ffe1;
+    color: #000;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+#next-question:hover, #return-home:hover {
+    background-color: #00c9b7;
+    color: #000;
+}
+
+.score {
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+    color: #00ffe1;
+}
+
+#feedback {
+    padding: 12px;
+    margin: 15px 0;
+    border-radius: 8px;
+    font-weight: bold;
+    border: 1px dashed #00ffe1;
+    background-color: #102535;
+    color: #00ffe1;
+}
+
+.progress-bar {
+    height: 14px;
+    background-color: #1a2b3c;
+    border: 1px solid #00ffe1;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 20px 0;
+}
+
+#progress-fill {
+    height: 100%;
+    width: 0%;
+    background-color: #00ffe1;
+    transition: width 0.3s ease;
+}
+
+#timer {
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+    color: #ffffff;
+    background-color: #1e2a38;
+    padding: 10px 20px;
+    border: 2px solid #00ffe1;
+    border-radius: 8px;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 10;
+    font-family: 'Segoe UI', sans-serif;
+    box-shadow: 0 0 10px #00ffe1;
+}
