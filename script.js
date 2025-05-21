@@ -20,6 +20,7 @@ async function loadQuestions() {
   }
 }
 
+
 loadQuestions();
 
 function showRules() {
